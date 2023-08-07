@@ -14,4 +14,6 @@ public interface DAO {
     Long count();
 
     List<Student> findAll();
+
+    void update(Student student);
 }

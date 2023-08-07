@@ -49,4 +49,10 @@ public class StudentDAO implements DAO {
         TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(s) FROM Student s", Long.class);
         return query.getSingleResult();
     }
+
+    @Override
+    @Transactional
+    public void update(Student student) {
+        entityManager.merge(student);
+    }
 }

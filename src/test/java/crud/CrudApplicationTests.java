@@ -105,6 +105,22 @@ class CrudApplicationTests {
 
 	}
 
+	@Test
+	@Transactional
+	@Rollback
+	public void canUpdateStudent() {
+		Student student = new Student("John", "Smith", "john@crud.com");
+		dao.save(student);
+		Long id = student.getId();
+
+		student.setFirstName("Louis");
+		dao.update(student);
+
+		assertThat(id).isEqualTo(student.getId());
+		assertThat(student.getFirstName()).isEqualTo("Louis");
+
+	}
+
 
 }
 

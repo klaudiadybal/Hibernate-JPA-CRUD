@@ -21,4 +21,9 @@ public class StudentDAO implements DAO {
     public void save(Student student) {
         entityManager.persist(student);
     }
+
+    @Override
+    public Student findById(int id) {
+        return entityManager.find(Student.class, id);
+    }
 }

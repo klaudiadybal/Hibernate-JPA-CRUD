@@ -32,15 +32,28 @@ class CrudApplicationTests {
 		assertThat(student.getId()).isNotNull();
 	}
 
+
 	@Test
+	@Transactional
+	@Rollback
 	public void canFindStudentById() {
 		Student student = new Student("John", "Smith", "john@crud.com");
 		dao.save(student);
 
 		int id = student.getId();
+		Student foundStudent = dao.findById(id);
+
+		assertThat(student.getId()).isEqualTo(foundStudent.getId());
+		assertThat(student.getFirstName()).isEqualTo(foundStudent.getFirstName());
+		assertThat(student.getLastName()).isEqualTo(foundStudent.getLastName());
 
 		
 	}
+
+	@Test
+	@Transactional
+	@Rollback
+	public void canFindStudentByLastName() {}
 
 }
 

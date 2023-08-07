@@ -26,7 +26,7 @@ public class StudentDAO implements DAO {
     }
 
     @Override
-    public Student findById(int id) {
+    public Student findById(Long id) {
         return entityManager.find(Student.class, id);
     }
 
@@ -36,5 +36,11 @@ public class StudentDAO implements DAO {
         query.setParameter("lastName", lastName);
 
         return query.getResultList();
+    }
+
+    @Override
+    public Long count() {
+        TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(s) FROM Student s", Long.class);
+        return query.getSingleResult();
     }
 }

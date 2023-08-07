@@ -42,7 +42,7 @@ class CrudApplicationTests {
 		Student student = new Student("John", "Smith", "john@crud.com");
 		dao.save(student);
 
-		int id = student.getId();
+		Long id = student.getId();
 		Student foundStudent = dao.findById(id);
 
 		assertThat(student.getId()).isEqualTo(foundStudent.getId());
@@ -59,15 +59,33 @@ class CrudApplicationTests {
 		dao.save(student);
 
 		String lastName = student.getLastName();
-		Integer id = student.getId();
+		Long id = student.getId();
 		List<Student> foundStudents = dao.findByLastName(lastName);
 
-		List<Integer> ids = foundStudents.stream()
+		List<Long> ids = foundStudents.stream()
 				.map(Student::getId)
 				.toList();
 
 		assertThat(foundStudents).isNotEmpty();
 		assertThat(ids).contains(id);
+	}
+
+	@Test
+	@Transactional
+	@Rollback
+	public void canCountStudents() {
+		Student student1 = new Student("John", "Smith", "john@crud.com");
+		Student student2 = new Student("Mary", "Johnson", "mary@crud.com");
+		Student student3 = new Student("James", "Williams", "james@crud.com");
+
+		dao.save(student1);
+		dao.save(student2);
+		dao.save(student3);
+
+		Long count = dao.count();
+
+		assertThat(count).isEqualTo(3);
+
 	}
 
 

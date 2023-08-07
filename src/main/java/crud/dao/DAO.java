@@ -7,7 +7,9 @@ import java.util.List;
 public interface DAO {
     void save(Student student);
 
-    Student findById(int id);
+    Student findById(Long id);
 
     List<Student> findByLastName(String lastName);
+
+    Long count();
 }

@@ -11,11 +11,13 @@ public interface DAO {
 
     List<Student> findByLastName(String lastName);
 
-    Long count();
-
     List<Student> findAll();
 
     void update(Student student);
 
     void delete(Student student);
+
+    Long deleteAll();
+
+    Long count();
 }

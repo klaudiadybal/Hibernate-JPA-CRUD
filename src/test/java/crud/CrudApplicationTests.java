@@ -136,6 +136,25 @@ class CrudApplicationTests {
 		assertThat(countAfter).isEqualTo(countBefore - 1);
 	}
 
+	@Test
+	@Transactional
+	@Rollback
+	public void canDeleteAll() {
+		Student student1 = new Student("John", "Smith", "john@crud.com");
+		Student student2 = new Student("Mary", "Johnson", "mary@crud.com");
+		Student student3 = new Student("James", "Williams", "james@crud.com");
+
+		dao.save(student1);
+		dao.save(student2);
+		dao.save(student3);
+
+		Long count = dao.count();
+		Long deletedRows = dao.deleteAll();
+
+		assertThat(deletedRows).isEqualTo(count);
+		assertThat(dao.count()).isZero();
+	}
+
 
 }
 

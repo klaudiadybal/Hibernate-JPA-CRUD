@@ -55,4 +55,10 @@ public class StudentDAO implements DAO {
     public void update(Student student) {
         entityManager.merge(student);
     }
+
+    @Override
+    @Transactional
+    public void delete(Student student) {
+        entityManager.remove(student);
+    }
 }

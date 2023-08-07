@@ -121,6 +121,21 @@ class CrudApplicationTests {
 
 	}
 
+	@Test
+	@Transactional
+	@Rollback
+	public void canDeleteStudent() {
+		Student student = new Student("John", "Smith", "john@crud.com");
+		dao.save(student);
+
+		Long countBefore = dao.count();
+		dao.delete(student);
+
+		Long countAfter = dao.count();
+
+		assertThat(countAfter).isEqualTo(countBefore - 1);
+	}
+
 
 }
 

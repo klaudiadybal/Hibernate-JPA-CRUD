@@ -9,6 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -47,13 +49,27 @@ class CrudApplicationTests {
 		assertThat(student.getFirstName()).isEqualTo(foundStudent.getFirstName());
 		assertThat(student.getLastName()).isEqualTo(foundStudent.getLastName());
 
-		
 	}
 
 	@Test
 	@Transactional
 	@Rollback
-	public void canFindStudentByLastName() {}
+	public void canFindStudentByLastName() {
+		Student student = new Student("John", "Smith", "john@crud.com");
+		dao.save(student);
+
+		String lastName = student.getLastName();
+		Integer id = student.getId();
+		List<Student> foundStudents = dao.findByLastName(lastName);
+
+		List<Integer> ids = foundStudents.stream()
+				.map(Student::getId)
+				.toList();
+
+		assertThat(foundStudents).isNotEmpty();
+		assertThat(ids).contains(id);
+	}
+
 
 }
 

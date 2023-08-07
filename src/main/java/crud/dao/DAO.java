@@ -12,4 +12,6 @@ public interface DAO {
     List<Student> findByLastName(String lastName);
 
     Long count();
+
+    List<Student> findAll();
 }

@@ -73,6 +73,23 @@ class CrudApplicationTests {
 	@Test
 	@Transactional
 	@Rollback
+	public void canFindAllStudents() {
+		Student student1 = new Student("John", "Smith", "john@crud.com");
+		Student student2 = new Student("Mary", "Johnson", "mary@crud.com");
+		Student student3 = new Student("James", "Williams", "james@crud.com");
+
+		dao.save(student1);
+		dao.save(student2);
+		dao.save(student3);
+
+		List<Student> foundStudents = dao.findAll();
+
+		assertThat(Long.valueOf(foundStudents.size())).isEqualTo(dao.count());
+	}
+
+	@Test
+	@Transactional
+	@Rollback
 	public void canCountStudents() {
 		Student student1 = new Student("John", "Smith", "john@crud.com");
 		Student student2 = new Student("Mary", "Johnson", "mary@crud.com");

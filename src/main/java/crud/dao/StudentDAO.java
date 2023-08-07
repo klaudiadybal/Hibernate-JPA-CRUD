@@ -39,6 +39,12 @@ public class StudentDAO implements DAO {
     }
 
     @Override
+    public List<Student> findAll() {
+        TypedQuery<Student> query = entityManager.createQuery("FROM Student", Student.class);
+        return query.getResultList();
+    }
+
+    @Override
     public Long count() {
         TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(s) FROM Student s", Long.class);
         return query.getSingleResult();
